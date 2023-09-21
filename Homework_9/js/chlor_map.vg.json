@@ -7,7 +7,7 @@
     "layer": [
         {
             "data":{
-                "url": "ne_10m_admin.topojson",
+                "url": "Homework 9/js/ne_10m_admin.topojson",
                 "format": {"type": "topojson", "feature": "ne_10m_admin_1_states_provinces"}
             },
             "mark": {"type": "geoshape", "fill": "lightgrey", "stroke": "white"}
