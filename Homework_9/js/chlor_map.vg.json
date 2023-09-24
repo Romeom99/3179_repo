@@ -5,8 +5,8 @@
            "stroke": "transparent"
         }
       },
-    "width": 450,
-    "height": 450,
+    "width": 500,
+    "height": 500,
     "title": "Forest Fires in the Brazilian Amazon",
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_9/data/inpe_brazilian_amazon_fires_1999_2019.csv"
@@ -73,6 +73,7 @@
     ],
     "layer": [
         {
+            "name": "oceans",
             "data": {
                 "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_9/js/ne_110m_ocean.json",
                 "format": {"type": "topojson", "feature": "ne_110m_ocean"}
@@ -80,6 +81,7 @@
             "mark": {"type": "geoshape", "fill": "#e5f9fb"}
         },
         {
+            "name": "countries",
             "data":{
                 "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_9/js/ne_110m_admin_0_countries.json",
                 "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
@@ -87,14 +89,40 @@
             "mark": {"type": "geoshape", "fill": "#e0e0e0"}
         },
         {
+            "name": "state_map",
             "data":{
                 "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_9/js/ne_50m_admin_1_states_provinces.json",
                 "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
             },
-            "mark": {"type": "geoshape", "fill": "#cdcdcd", "stroke": "black", "strokeWidth": 0.5}
+            "transform": [
+                {
+                    "calculate": "'Data no avaiable for: ' + datum.properties.name",
+                    "as": "note"
+                },
+                {
+                    "lookup": "properties.name",
+                    "from":{
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_9/data/inpe_brazilian_amazon_fires_1999_2019.csv"
+                        },
+                        "key": "state"
+                    },
+                    "as":"hideState"
+                }
+
+            ],
+            "mark": {"type": "geoshape", "fill": "#cdcdcd", "stroke": "black", "strokeWidth": 0.2}
         },
         {
+            "name": "fire_data",
             "mark": "circle",
+            "transform": [
+                {
+                    "window": [{"op":"sum","field": "firespots", "as": "sumFire"}],
+                    "frame": [null, null],
+                    "groupby": ["state", "year"]
+                }
+            ],
             "encoding": {
                 "longitude": {"field": "longitude", "type": "quantitative"},
                 "latitude": {"field": "latitude", "type": "quantitative"},
@@ -109,7 +137,14 @@
                     }
                 },
                 "color": {"value": "#f86d07"},
-                "opacity": {"value": 0.6}
+                "opacity": {"value": 0.6},
+                "tooltip":[
+                    {"field":"state", "type": "nominal", "title": "State"},
+                    {"field":"firespots","type": "quantitative", "title":"Number of fires"},
+                    {"field":"year", "type": "nominal", "title":"Year"},
+                    {"field":"sumFire", "type": "quantitative", "title":"Total fires in the State for that year"}
+                ] 
+
             }
         }
     ]
