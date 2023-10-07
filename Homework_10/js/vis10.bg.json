@@ -1,0 +1,12 @@
+{
+
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "config": {
+        "view": {
+            "stroke": "transparent"
+        }
+        },
+    "width": 500,
+    "height": 500,
+    "title": "Forest Fires in the Brazilian Amazon"
+}
