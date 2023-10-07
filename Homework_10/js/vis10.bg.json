@@ -8,5 +8,8 @@
         },
     "width": 500,
     "height": 500,
-    "title": "Forest Fires in the Brazilian Amazon"
+    "title": "Forest Fires in the Brazilian Amazon",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/treecover_loss_by_region__ha.csv"
+    }
 }
