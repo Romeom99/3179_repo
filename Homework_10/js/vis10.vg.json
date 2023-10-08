@@ -1,0 +1,44 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 500,
+    "title": "Forest Fires in the Brazilian Amazon",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/treecover_loss_by_region__ha.csv"
+    },
+    "transform": [
+        {
+            "lookup": "iso",
+            "from":{
+                "data":{
+                    "url": ""
+                }
+            }
+        }
+
+    ],
+    "encoding": {
+        "x": {
+            "field": "year",
+            "type": "temporal",
+            "title": "Year"
+        },
+        "y": {
+            "field": "tree_loss_ha",
+            "type": "quantitative",
+            "title": "Tree Cover Loss (ha)",
+            "axis": {"tickCount": 6},
+            "scale": {"type": "linear"}
+        }
+    },
+    "layer": [
+        {
+            "mark":"line",
+            "encoding": {
+                "color":{"field":"iso","type": "nominal"},
+                "tooltip":{"field":"iso", "type": "nominal"}
+            }
+            
+        }
+    ]
+}
