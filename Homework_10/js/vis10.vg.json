@@ -6,6 +6,9 @@
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/treecover_loss_by_region__ha.csv"
     },
+    "params": [
+
+    ],
     "transform": [
         {
             "lookup": "iso",
@@ -14,9 +17,15 @@
                     "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/land-area-km.csv"
                 },
                 "key": "Code",
-                "fields": ["Entity"]
+                "fields": ["area","Entity"]
             },
-            "as": ["area"]
+            "as": ["country_area","country_name"]
+        },
+        {"filter": "datum.country_name != null"},
+        {"filter": {"field": "country_name", "equal":"Brazil"}},
+        {
+            "calculate": "datum.tree_loss_ha/datum.country_area",
+            "as": "Tree loss (ha/km)"
         }
     ],
     "encoding": {
@@ -26,7 +35,7 @@
             "title": "Year"
         },
         "y": {
-            "field": "tree_loss_ha",
+            "field": "Tree loss (ha/km)",
             "type": "quantitative",
             "title": "Tree Cover Loss (ha)",
             "axis": {"tickCount": 6},
@@ -37,10 +46,10 @@
         {
             "mark":"line",
             "encoding": {
-                "color":{"field":"iso","type": "nominal"},
+                "color":{"field":"country_name","type": "nominal"},
                 "tooltip":[
-                    {"field":"iso", "type": "nominal"},
-                    {"field":"area","type": "nominal"}
+                    {"field":"country_name", "type": "nominal"},
+                    {"field":"country_area","type": "quantitative"}
                 ]
             }
             
