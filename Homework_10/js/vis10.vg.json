@@ -564,7 +564,7 @@
         "y": {
             "field": "Tree_loss_(km/km)",
             "type": "quantitative",
-            "title": "Tree Cover Loss per square kilmeter of Forest area (km^2/km^2)",
+            "title": "Tree Cover Loss per square kilometer of Forest area (km^2/km^2)",
             "axis": {"tickCount": 6},
             "scale": {"type": "log"}
         }
@@ -589,7 +589,7 @@
                 "tooltip":[
                     {"field":"country_name", "type": "nominal","title":"Country"},
                     {"field": "year", "type": "temporal", "title":"Year", "timeUnit": "year"},
-                    {"field": "Tree_loss_(km/km)", "type": "quantitative", "title": "Tree Cover Loss per square kilmeter of Forest area (km^2/km^2)", "format": ".4f"},
+                    {"field": "Tree_loss_(km/km)", "type": "quantitative", "title": "Tree Cover Loss per square kilometer of Forest area (km^2/km^2)", "format": ".4f"},
                     {"field": "tree_loss_km", "type": "quantitative","title": "Total Tree cover loss for that year (km^2)", "format": ".2f"}
                 ]
             }
