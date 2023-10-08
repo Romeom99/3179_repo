@@ -9,31 +9,15 @@
     "transform": [
         {
             "lookup": "iso",
-            "from":{
+            "from": {
                 "data":{
-                    "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/iso_metadata.csv"
+                    "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/land-area-km.csv"
                 },
-                "key": "iso",
-                "fields": ["name"]
-            },
-            "as": ["country_name"]
-        },
-        {
-            "lookup": "country_name",
-            "from":{
-                "data": {
-                    "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/countries%20of%20the%20world.csv"
-                },
-                "key": "Country",
-                "fields": ["Area (sq. mi.)"]
+                "key": "Code",
+                "fields": ["Entity"]
             },
             "as": ["area"]
-        },
-        {
-            "calculate": "datum.tree_loss_ha/datum.area",
-            "as": "Tree loss ha/sq.mi"
         }
-
     ],
     "encoding": {
         "x": {
@@ -54,7 +38,10 @@
             "mark":"line",
             "encoding": {
                 "color":{"field":"iso","type": "nominal"},
-                "tooltip":{"field":"iso", "type": "nominal"}
+                "tooltip":[
+                    {"field":"iso", "type": "nominal"},
+                    {"field":"area","type": "nominal"}
+                ]
             }
             
         }
