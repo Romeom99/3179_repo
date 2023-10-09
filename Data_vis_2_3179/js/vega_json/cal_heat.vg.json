@@ -2,5 +2,57 @@
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 500,
     "height": 500,
-    "title": "Deforestation vs Reforestation of Brazillian States"
+    "title": "Deforestation of Brazillian States",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/treecover_loss_by_region__ha.csv"
+    },
+    "transform": [
+        {
+            "lookup": "adm1",
+            "from": {
+                "data": {
+                    "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/adm1_metadata.csv"
+                },
+                "key": "adm1__id",
+                "fields": ["name"]
+            },
+            "as": "state_name"
+        },
+        {
+            "calculate": "datum.tree_loss_state*0.01",
+            "as": "tree_loss_state_km"
+        }
+    ],
+
+    "encoding": {
+        "x": {
+            "field": "umd_tree_cover_loss__year",
+            "type": "temporal",
+            "title": "Year"
+        },
+        "y": {
+            "field": "state_name",
+            "type": "nominal",
+            "title": "State"
+        }
+    },
+
+    "layer": [
+        {
+            "mark":"rect",
+            "encoding": {
+                "color": {
+                    "field": "tree_loss_state_km",
+                    "type": "quantitative",
+                    "title": "Tree loss (km^2)",
+                    "scale": {
+                        "type": "sequential",
+                        "range":["greens"]
+                        
+                    }
+                }
+            }
+        }
+    ]
+
 }
