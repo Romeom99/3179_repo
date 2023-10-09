@@ -1,28 +1,28 @@
-name,adm1__id
-"Acre","1"
-"Alagoas","2"
-"Amapá","3"
-"Amazonas","4"
-"Bahia","5"
-"Ceará","6"
-"Distrito Federal","7"
-"Espírito Santo","8"
-"Goiás","9"
-"Maranhão","10"
-"Mato Grosso do Sul","11"
-"Mato Grosso","12"
-"Minas Gerais","13"
-"Pará","14"
-"Paraíba","15"
-"Paraná","16"
-"Pernambuco","17"
-"Piauí","18"
-"Rio de Janeiro","19"
-"Rio Grande do Norte","20"
-"Rio Grande do Sul","21"
-"Rondônia","22"
-"Roraima","23"
-"Santa Catarina","24"
-"São Paulo","25"
-"Sergipe","26"
-"Tocantins","27"
+name,adm1__id,area__ha
+Acre,1,15273529.71
+Alagoas,2,2775821.386
+Amapá,3,14221802.99
+Amazonas,4,156639183.8
+Bahia,5,56331365.62
+Ceará,6,14881135.02
+Distrito Federal,7,580299.0945
+Espírito Santo,8,4375195.722
+Goiás,9,34037005.12
+Maranhão,10,33029284.06
+Mato Grosso do Sul,11,35703986.09
+Mato Grosso,12,90462712.24
+Minas Gerais,13,58899332.85
+Pará,14,124836729.8
+Paraíba,15,5638303.375
+Paraná,16,19915972.06
+Pernambuco,17,9822549.272
+Piauí,18,25110053.79
+Rio de Janeiro,19,4368756.775
+Rio Grande do Norte,20,5324734.174
+Rio Grande do Sul,21,27142234.96
+Rondônia,22,23637739.65
+Roraima,23,22438018.49
+Santa Catarina,24,9863943.965
+São Paulo,25,24760752.52
+Sergipe,26,2202799.443
+Tocantins,27,27762407.76

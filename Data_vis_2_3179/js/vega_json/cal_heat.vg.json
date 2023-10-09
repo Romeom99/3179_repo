@@ -14,9 +14,9 @@
                     "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/adm1_metadata.csv"
                 },
                 "key": "adm1__id",
-                "fields": ["name"]
+                "fields": ["name","area_ha"]
             },
-            "as": "state_name"
+            "as": ["state_name", "state_area"]
         },
         {
             "calculate": "datum.tree_loss_state*0.01",
@@ -26,9 +26,11 @@
 
     "encoding": {
         "x": {
+            "bin": {"maxbins": 22},
             "field": "umd_tree_cover_loss__year",
-            "type": "temporal",
+            "type": "nominal",
             "title": "Year"
+
         },
         "y": {
             "field": "state_name",
@@ -44,15 +46,20 @@
                 "color": {
                     "field": "tree_loss_state_km",
                     "type": "quantitative",
-                    "title": "Tree loss (km^2)",
-                    "scale": {
-                        "type": "sequential",
-                        "range":["greens"]
-                        
+                    "scale":{
+                        "scheme": "reds"
                     }
-                }
+                },
+                "tooltip": [
+                    {"field": "tree_loss_state_km"},
+                    {"field": "umd_tree_cover_loss__year"},
+                    {"field": "state_area"}
+                ]
+                
+                
             }
         }
+        
     ]
 
 }
