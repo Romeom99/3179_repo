@@ -6,6 +6,13 @@
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/treecover_loss_by_region__ha.csv"
     },
+    "params": [
+        {
+            "name": "highlight",
+            "select": {"type": "point", "on": "mouseover"}
+        },
+        {"name": "select", "select": "point"}
+    ],
     "transform": [
         {
             "lookup": "adm1",
@@ -14,12 +21,12 @@
                     "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/adm1_metadata.csv"
                 },
                 "key": "adm1__id",
-                "fields": ["name","area_ha"]
+                "fields": ["name","area__ha"]
             },
             "as": ["state_name", "state_area"]
         },
         {
-            "calculate": "datum.tree_loss_state*0.01",
+            "calculate": "(datum.tree_loss_state/datum.state_area) * 100",
             "as": "tree_loss_state_km"
         }
     ],
@@ -41,22 +48,57 @@
 
     "layer": [
         {
-            "mark":"rect",
+            "mark":{
+                "type": "rect",
+                "stroke": "black",
+                "cursor": "pointer"
+            },
             "encoding": {
                 "color": {
                     "field": "tree_loss_state_km",
                     "type": "quantitative",
+                    "title": "Tree loss per square kilometer",
                     "scale":{
                         "scheme": "reds"
                     }
                 },
+                "fillOpacity": {
+                    "condition": {"param": "select", "value": 1},
+                    "value": 0.3
+                },
+                "strokeWidth": {
+                    "condition": [
+                        {
+                            "param": "select",
+                            "empty": false,
+                            "value": 2
+                        },
+                        {
+                            "param": "highlight",
+                            "empty": false,
+                            "value": 1
+                        }
+                    ],
+                    "value": 0
+                },
                 "tooltip": [
-                    {"field": "tree_loss_state_km"},
-                    {"field": "umd_tree_cover_loss__year"},
-                    {"field": "state_area"}
+                    {
+                        "field": "tree_loss_state_km", 
+                        "type": "quantitative", 
+                        "title": "Tree loss per square Kilometer", 
+                        "format": ".2f"
+                    },
+                    {
+                        "field": "umd_tree_cover_loss__year",
+                        "type": "nominal",
+                        "title": "Year"
+                    },
+                    {
+                        "field": "state_name",
+                        "type": "nominal",
+                        "title": "State"
+                    }
                 ]
-                
-                
             }
         }
         
