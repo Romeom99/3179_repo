@@ -1,0 +1,148 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "config": {
+        "view": {
+           "stroke": "transparent"
+        }
+      },
+    "width": 500,
+    "height": 500,
+    "title": "Forest Fires in the Brazilian Amazon",
+    "data": {
+        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/treecover_loss_by_region__ha.csv"
+    },
+    "projection": {"type":"azimuthalEqualArea"},
+    "params": [
+        {
+            "name": "years",
+            "value": "1999",
+            "bind": {
+                "input": "select",
+                "options": [
+                    "1999",
+                    "2000",
+                    "2001",
+                    "2002",
+                    "2003",
+                    "2004",
+                    "2005",
+                    "2006",
+                    "2007",
+                    "2008",
+                    "2009",
+                    "2010",
+                    "2011",
+                    "2012",
+                    "2013",
+                    "2014",
+                    "2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019"
+                ],
+                "labels": [
+                    "1999",
+                    "2000",
+                    "2001",
+                    "2002",
+                    "2003",
+                    "2004",
+                    "2005",
+                    "2006",
+                    "2007",
+                    "2008",
+                    "2009",
+                    "2010",
+                    "2011",
+                    "2012",
+                    "2013",
+                    "2014",
+                    "2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019"
+                ],
+                "name": "Select years: "
+            }
+        }
+    ],
+    "transform": [
+        {"filter": "datum.year == years"}
+    ],
+    "layer": [
+        {
+            "name": "oceans",
+            "data": {
+                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_110m_ocean.json",
+                "format": {"type": "topojson", "feature": "ne_110m_ocean"}
+            },
+            "mark": {"type": "geoshape", "fill": "#e5f9fb"}
+        },
+        {
+            "name": "countries",
+            "data":{
+                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_110m_admin_0_countries.json",
+                "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+            },
+            "mark": {"type": "geoshape", "fill": "#e0e0e0"}
+        },
+        {
+            "name": "state_map",
+            "data":{
+                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_50m_admin_1_states_provinces.json",
+                "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
+            },
+
+            "mark": {"type": "geoshape", "fill": "#cdcdcd", "stroke": "black", "strokeWidth": 0.2}
+        },
+        {
+            "transform": [
+                {
+                    "lookup": "adm1",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/adm1_metadata.csv"
+                        },
+                        "key": "adm1__id",
+                        "fields": ["name","area__ha"]
+                    },
+                    "as": ["state_name", "state_area"]
+                },
+                {
+                    "calculate": "(datum.tree_loss_state/datum.state_area) * 100",
+                    "as": "tree_loss_state_km"
+                }
+            ],
+            "mark": {"type": "geoshape", "stroke": "white"},
+            "encoding": {
+                "color": {
+                  "field": "tree_loss_state_km",
+                  "type": "quantitative",
+                  "scale": {
+                    "scheme": "greens"
+                  }
+                },
+                "tooltip": [
+                    {
+                        "field": "tree_loss_state_km", 
+                        "type": "quantitative", 
+                        "title": "Tree loss per square Kilometer", 
+                        "format": ".2f"
+                    },
+                    {
+                        "field": "umd_tree_cover_loss__year",
+                        "type": "nominal",
+                        "title": "Year"
+                    },
+                    {
+                        "field": "state_name",
+                        "type": "nominal",
+                        "title": "State"
+                    }
+                ]
+            }
+        }
+    ]
+}

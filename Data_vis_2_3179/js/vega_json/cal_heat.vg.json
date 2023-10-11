@@ -26,14 +26,14 @@
             "as": ["state_name", "state_area"]
         },
         {
-            "calculate": "(datum.tree_loss_state/datum.state_area) * 100",
+            "calculate": "(datum.co2_state/datum.state_area) * 100",
             "as": "tree_loss_state_km"
         }
     ],
 
     "encoding": {
         "x": {
-            "bin": {"maxbins": 22},
+            "bin": {"maxbins": 100},
             "field": "umd_tree_cover_loss__year",
             "type": "nominal",
             "title": "Year"
@@ -58,9 +58,9 @@
                     "field": "tree_loss_state_km",
                     "type": "quantitative",
                     "title": "Tree loss per square kilometer",
-                    "scale":{
-                        "scheme": "reds"
-                    }
+                    "scale": {
+                        "scheme": "greens"
+                      }
                 },
                 "fillOpacity": {
                     "condition": {"param": "select", "value": 1},
