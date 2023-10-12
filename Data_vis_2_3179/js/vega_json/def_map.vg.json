@@ -125,7 +125,7 @@
             "mark": {"type": "geoshape", "stroke": "black", "strokeWidth": 0.2},
             "encoding": {
                 "color": {
-                    "title": "Tree loss per 100 square kilometers",
+                    "title": "Tree loss per 100 km^2",
                     "field": "tree_loss_state_km",
                     "type": "quantitative",
                     "scale": {
@@ -136,7 +136,7 @@
                     {
                         "field": "tree_loss_state_km", 
                         "type": "quantitative", 
-                        "title": "Tree loss per km^2", 
+                        "title": "Tree loss per 100 square kilometers", 
                         "format": ".2f"
                     },
                     {
