@@ -136,7 +136,7 @@
                     {
                         "field": "tree_loss_state_km", 
                         "type": "quantitative", 
-                        "title": "Tree loss per square Kilometer", 
+                        "title": "Tree loss per km^2", 
                         "format": ".2f"
                     },
                     {
