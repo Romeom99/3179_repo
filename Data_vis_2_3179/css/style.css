@@ -1,0 +1,10 @@
+.page{
+    display: inline-block;
+}
+.pure-u-1-2, .pure-u-1-1{
+    width: 45%; 
+    margin: 0 2.5%; 
+    float: left;
+    padding: 10px; 
+    box-sizing: border-box;
+}

@@ -9,14 +9,64 @@
     <!-- Import pure.css -->
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
     integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    
+    <!-- CSS file -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="all">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deforestation of Brazil</title>
 </head>
 <body>
-    <div id="test"></div>
+    <div class="page">
+        <div class="pure-g">
+            <div class="pure-u-1-1">
+                <h1>Deforestation of Brazil</h1>
+            </div>
+        </div>
 
-    <script type="application/javascript" src="js/script/cal_heat.js"></script>
+        <div class="pure-g">
+            <div class="pure-u-1-2">
+                <p>
+                    Brazil, home to the largest rainforest in the world, and has the largest amount of area
+                    covered in Primary rainforest. These rainforests however have been under threat in recent
+                    history, through natural and unatural circumstances. As is stands Brazil is slowly losing 
+                    its beautiful flora, that has become a symbol of the country. <br>
+                    <br>
+                    Each state in Brazil has seen its fair share of deforestation, especially in the northwestern 
+                    states, where the largest chunck of  the Amazon lies. Below you can see the deforestation rates
+                    for each state over the years 
+                </p>
+                <div id="def_map"></div>
+            </div>
+            <div class="pure-u-1-2">
+                <p>
+                    Brazil compared to the world, on average is the largest contributer to deforestation of
+                    natural rainforests. Even when comparing to the relative area of rainforests that each country has
+                    Brazil still comes out on top. <br>
+                    <br>
+                    Below you can see a chart showing the trend of deforestation of different countries compared
+                    to Brazil. Each value has been normalised to the relative area of rainforests of that country
+                </p>
+                <div id="line_defor"></div>
+            </div>
+        </div>
+        <div class="pure-g">
+            <div class="pure-u-1-2">
+                <p>
+                    Besides the unatural factors causing deforestation, there is another major factors
+                    affecting the rainforests in Brazil. Wildfires are a big factor affecting, with Brazil
+                    having thousands of spots fires per year. <br>
+                    <br>
+                    Below you can see the frequency of wildfires and where they appeared throughout Brazil 
+                </p>
+                <div id="fire_map"></div>
+            </div>
+        </div>
+
+    </div>
+    <script type="application/javascript" src="js/script/def_map.js"></script>
+    <script type="application/javascript" src="js/script/line_defor.js"></script>
+    <script type="application/javascript" src="js/script/fire_map.js"></script>
 </body>
 </html>

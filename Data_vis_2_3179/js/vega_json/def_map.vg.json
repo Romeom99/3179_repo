@@ -6,21 +6,20 @@
         }
       },
     "width": 500,
-    "height": 500,
-    "title": "Forest Fires in the Brazilian Amazon",
-    "data": {
-        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/treecover_loss_by_region__ha.csv"
+    "height": 800,
+    "title": "Deforestation in Brazil by State",
+    "data":{
+        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/js/geojson/ne_50m_admin_1_states_provinces.json",
+        "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
     },
     "projection": {"type":"azimuthalEqualArea"},
     "params": [
         {
             "name": "years",
-            "value": "1999",
+            "value": "2001",
             "bind": {
                 "input": "select",
                 "options": [
-                    "1999",
-                    "2000",
                     "2001",
                     "2002",
                     "2003",
@@ -39,11 +38,12 @@
                     "2016",
                     "2017",
                     "2018",
-                    "2019"
+                    "2019",
+                    "2020",
+                    "2021",
+                    "2022"
                 ],
                 "labels": [
-                    "1999",
-                    "2000",
                     "2001",
                     "2002",
                     "2003",
@@ -62,20 +62,33 @@
                     "2016",
                     "2017",
                     "2018",
-                    "2019"
+                    "2019",
+                    "2020",
+                    "2021",
+                    "2022"
                 ],
                 "name": "Select years: "
             }
         }
     ],
     "transform": [
-        {"filter": "datum.year == years"}
+        {
+            "lookup": "properties.name",
+            "from": {
+                "data": {
+                    "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/adm1_metadata.csv"
+                },
+                "key": "name",
+                "fields": ["adm1__id", "area__ha"]
+            },
+            "as": ["id", "state_area"]
+        }
     ],
     "layer": [
         {
             "name": "oceans",
             "data": {
-                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_110m_ocean.json",
+                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/js/geojson/ne_110m_ocean.json",
                 "format": {"type": "topojson", "feature": "ne_110m_ocean"}
             },
             "mark": {"type": "geoshape", "fill": "#e5f9fb"}
@@ -83,46 +96,41 @@
         {
             "name": "countries",
             "data":{
-                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_110m_admin_0_countries.json",
+                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/js/geojson/ne_110m_admin_0_countries.json",
                 "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
             },
             "mark": {"type": "geoshape", "fill": "#e0e0e0"}
         },
         {
-            "name": "state_map",
-            "data":{
-                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_50m_admin_1_states_provinces.json",
-                "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
-            },
-
             "mark": {"type": "geoshape", "fill": "#cdcdcd", "stroke": "black", "strokeWidth": 0.2}
         },
         {
             "transform": [
                 {
-                    "lookup": "adm1",
+                    "lookup": "id",
                     "from": {
                         "data": {
-                            "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/adm1_metadata.csv"
+                            "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/treecover_loss_by_region__ha.csv"
                         },
-                        "key": "adm1__id",
-                        "fields": ["name","area__ha"]
+                        "key": "adm1",
+                        "fields": ["umd_tree_cover_loss__year","tree_loss_state"]
                     },
-                    "as": ["state_name", "state_area"]
+                    "as": ["year", "tree_loss_state_ha"]
                 },
                 {
-                    "calculate": "(datum.tree_loss_state/datum.state_area) * 100",
+                    "calculate": "(datum.tree_loss_state_ha/datum.state_area) * 100",
                     "as": "tree_loss_state_km"
                 }
             ],
-            "mark": {"type": "geoshape", "stroke": "white"},
+            "mark": {"type": "geoshape", "stroke": "black", "strokeWidth": 0.2},
             "encoding": {
                 "color": {
-                  "field": "tree_loss_state_km",
-                  "type": "quantitative",
-                  "scale": {
-                    "scheme": "greens"
-                  }
+                    "title": "Tree loss per 100 square kilometers",
+                    "field": "tree_loss_state_km",
+                    "type": "quantitative",
+                    "scale": {
+                        "scheme": "greens"
+                    }
                 },
                 "tooltip": [
                     {
@@ -132,12 +140,12 @@
                         "format": ".2f"
                     },
                     {
-                        "field": "umd_tree_cover_loss__year",
+                        "field": "year",
                         "type": "nominal",
                         "title": "Year"
                     },
                     {
-                        "field": "state_name",
+                        "field": "properties.name",
                         "type": "nominal",
                         "title": "State"
                     }

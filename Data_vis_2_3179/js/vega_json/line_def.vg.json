@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 500,
-    "height": 500,
+    "height": 300,
     "title": "Comparing Tree cover loss of Brazil to other Countries",
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/treecover_loss_by_region__ha.csv"
