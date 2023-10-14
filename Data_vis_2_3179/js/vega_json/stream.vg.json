@@ -1,5 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json", 
+    "width": "container",
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/stream/treecover_loss__ha.csv"
     },
@@ -14,7 +15,6 @@
     ],
     "vconcat": [
         {
-            "width": 500,
             "mark": "area",
             "params": [
                 {"name": "yearInt", "select":  {"type": "interval",
@@ -38,10 +38,9 @@
                     }
                 }
             },
-            "height": 200
+            "height": 300
         },
         {
-            "width": 500,
             "height": 100,
             "transform": [
                 {"filter": {"param": "yearInt", "empty": false}}

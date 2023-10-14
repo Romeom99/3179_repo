@@ -5,8 +5,8 @@
            "stroke": "transparent"
         }
       },
-    "width": 500,
-    "height": 500,
+    "width": "container",
+    "height": 400,
     "title": "Forest Fires in the Brazilian Amazon",
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/inpe_brazilian_amazon_fires_1999_2019.csv"
