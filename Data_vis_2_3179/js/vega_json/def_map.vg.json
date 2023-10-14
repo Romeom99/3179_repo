@@ -9,8 +9,7 @@
     "height": 800,
     "title": "Deforestation in Brazil by State",
     "data":{
-        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/js/geojson/ne_50m_admin_1_states_provinces.json",
-        "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
+        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/treecover_loss_by_region__ha.csv"
     },
     "projection": {"type":"azimuthalEqualArea"},
     "params": [
@@ -73,15 +72,15 @@
     ],
     "transform": [
         {
-            "lookup": "properties.name",
+            "lookup": "adm1",
             "from": {
                 "data": {
                     "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/adm1_metadata.csv"
                 },
-                "key": "name",
-                "fields": ["adm1__id", "area__ha"]
+                "key": "adm1__id",
+                "fields": ["name", "area__ha"]
             },
-            "as": ["id", "state_area"]
+            "as": ["state_name", "state_area"]
         }
     ],
     "layer": [
@@ -102,54 +101,37 @@
             "mark": {"type": "geoshape", "fill": "#e0e0e0"}
         },
         {
-            "mark": {"type": "geoshape", "fill": "#cdcdcd", "stroke": "black", "strokeWidth": 0.2}
+            "data": {
+                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/js/geojson/ne_50m_admin_1_states_provinces.json",
+                "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
+            },
+            "mark": {"type": "geoshape", "stroke": "black", "fill": "#cdcdcd","strokeWidth": 0.2}
         },
         {
             "transform": [
                 {
-                    "lookup": "id",
+                    "lookup": "state_name",
                     "from": {
                         "data": {
-                            "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/treecover_loss_by_region__ha.csv"
+                            "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/js/geojson/ne_50m_admin_1_states_provinces.json",
+                            "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
                         },
-                        "key": "adm1",
-                        "fields": ["umd_tree_cover_loss__year","tree_loss_state"]
+                        "key": "properties.name",
+                        "fields": ["properties.longitude", "properties.latitude"]
                     },
-                    "as": ["year", "tree_loss_state_ha"]
-                },
-                {
-                    "calculate": "(datum.tree_loss_state_ha/datum.state_area) * 100",
-                    "as": "tree_loss_state_km"
+                    "as": ["longitude", "latitude"]
                 }
             ],
-            "mark": {"type": "geoshape", "stroke": "black", "strokeWidth": 0.2},
+            "mark": {"type": "circle"},
             "encoding": {
+                "longitude":{"field": "longitude", "type": "quantitative"},
+                "latitude": {"field": "latitide", "type": "quantitative"},
                 "color": {
-                    "title": "Tree loss per 100 km^2",
-                    "field": "tree_loss_state_km",
-                    "type": "quantitative",
+                    "field": "tree_loss_state",
                     "scale": {
                         "scheme": "greens"
                     }
-                },
-                "tooltip": [
-                    {
-                        "field": "tree_loss_state_km", 
-                        "type": "quantitative", 
-                        "title": "Tree loss per 100 square kilometers", 
-                        "format": ".2f"
-                    },
-                    {
-                        "field": "year",
-                        "type": "nominal",
-                        "title": "Year"
-                    },
-                    {
-                        "field": "properties.name",
-                        "type": "nominal",
-                        "title": "State"
-                    }
-                ]
+                }
             }
         }
     ]
