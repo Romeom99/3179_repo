@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 550,
+    "width": 650,
     "height": 400,
     "background": "#c8ebcc",
     "title": "Deforestation of Brazillian States",
@@ -64,7 +64,7 @@
                     "type": "quantitative",
                     "title": "Tree loss per square kilometer",
                     "scale": {
-                        "scheme": "purples"
+                        "scheme":"purpleblue"
                       }
                 },
                 "fillOpacity": {

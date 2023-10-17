@@ -19,7 +19,7 @@
     ],
     "vconcat": [
         {
-            "width": 280,
+            "width": 330,
             "height": 300,
             "projection": {
                 "type":"azimuthalEqualArea"
@@ -87,7 +87,7 @@
             ]
         },
         {
-            "width": 280,
+            "width": 350,
             "height": 100,
             "title": "Select the year you wish to see",
             "encoding": {
