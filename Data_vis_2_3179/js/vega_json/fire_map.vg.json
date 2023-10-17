@@ -10,6 +10,19 @@
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/inpe_brazilian_amazon_fires_1999_2019.csv"
     },
+    "params": [
+        {
+            "name": "zoom_level",
+            "value": 200,
+            "bind": {
+                "input": "range",
+                "min": 50,
+                "max": 500,
+                "step": 100,
+                "name": "Zoom: "
+            }   
+        }
+    ],
     "transform": [
         {
             "window": [{"op":"sum", "field": "firespots", "as": "sumYear"}],
@@ -22,7 +35,9 @@
             "width": 330,
             "height": 300,
             "projection": {
-                "type":"azimuthalEqualArea"
+                "type":"azimuthalEqualArea",
+                "center": [295.014782,-4.729727],
+                "scale": {"expr": "zoom_level"}
             },
             "layer": [
                 {
@@ -181,5 +196,6 @@
             ]
             
         }
-    ]
+    ],
+    "config": {}
 }
