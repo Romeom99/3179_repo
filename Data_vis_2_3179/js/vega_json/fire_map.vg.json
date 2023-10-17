@@ -5,130 +5,181 @@
            "stroke": "transparent"
         }
       },
-    "width": "container",
-    "height": 400,
+    "background": "#c8ebcc",
     "title": "Forest Fires in the Brazilian Amazon",
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/inpe_brazilian_amazon_fires_1999_2019.csv"
     },
-    "projection": {"type":"azimuthalEqualArea"},
-    "params": [
+    "transform": [
         {
-            "name": "years",
-            "value": "1999",
-            "bind": {
-                "input": "select",
-                "options": [
-                    "1999",
-                    "2000",
-                    "2001",
-                    "2002",
-                    "2003",
-                    "2004",
-                    "2005",
-                    "2006",
-                    "2007",
-                    "2008",
-                    "2009",
-                    "2010",
-                    "2011",
-                    "2012",
-                    "2013",
-                    "2014",
-                    "2015",
-                    "2016",
-                    "2017",
-                    "2018",
-                    "2019"
-                ],
-                "labels": [
-                    "1999",
-                    "2000",
-                    "2001",
-                    "2002",
-                    "2003",
-                    "2004",
-                    "2005",
-                    "2006",
-                    "2007",
-                    "2008",
-                    "2009",
-                    "2010",
-                    "2011",
-                    "2012",
-                    "2013",
-                    "2014",
-                    "2015",
-                    "2016",
-                    "2017",
-                    "2018",
-                    "2019"
-                ],
-                "name": "Select years: "
-            }
+            "window": [{"op":"sum", "field": "firespots", "as": "sumYear"}],
+            "frame": [null,null],
+            "groupby": ["year"]
         }
     ],
-    "transform": [
-        {"filter": "datum.year == years"}
-    ],
-    "layer": [
+    "vconcat": [
         {
-            "name": "oceans",
-            "data": {
-                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_110m_ocean.json",
-                "format": {"type": "topojson", "feature": "ne_110m_ocean"}
+            "width": 280,
+            "height": 300,
+            "projection": {
+                "type":"azimuthalEqualArea"
             },
-            "mark": {"type": "geoshape", "fill": "#e5f9fb"}
-        },
-        {
-            "name": "countries",
-            "data":{
-                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_110m_admin_0_countries.json",
-                "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-            },
-            "mark": {"type": "geoshape", "fill": "#e0e0e0"}
-        },
-        {
-            "name": "state_map",
-            "data":{
-                "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_50m_admin_1_states_provinces.json",
-                "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
-            },
-            "mark": {"type": "geoshape", "fill": "#cdcdcd", "stroke": "black", "strokeWidth": 0.2}
-        },
-        {
-            "name": "fire_data",
-            "mark": "circle",
-            "transform": [
+            "layer": [
                 {
-                    "window": [{"op":"sum","field": "firespots", "as": "sumFire"}],
-                    "frame": [null, null],
-                    "groupby": ["state", "year"]
+                    "name": "oceans",
+                    "data": {
+                        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_110m_ocean.json",
+                        "format": {"type": "topojson", "feature": "ne_110m_ocean"}
+                    },
+                    "mark": {"type": "geoshape", "fill": "#e5f9fb"}
+                },
+                {
+                    "name": "countries",
+                    "data":{
+                        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_110m_admin_0_countries.json",
+                        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+                    },
+                    "mark": {"type": "geoshape", "fill": "#e0e0e0"}
+                },
+                {
+                    "name": "state_map",
+                    "data":{
+                        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_50m_admin_1_states_provinces.json",
+                        "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
+                    },
+                    "mark": {"type": "geoshape", "fill": "#cdcdcd", "stroke": "black", "strokeWidth": 0.2}
+                },
+                {
+                    "name": "fire_data",
+                    "mark": "circle",
+                    "transform": [
+                        {
+                            "window": [{"op":"sum","field": "firespots", "as": "sumFire"}],
+                            "frame": [null, null],
+                            "groupby": ["state", "year"]
+                        },
+                        {"filter": {"param": "yearInt", "empty": false}}
+                    ],
+                    "encoding": {
+                        "longitude": {"field": "longitude", "type": "quantitative"},
+                        "latitude": {"field": "latitude", "type": "quantitative"},
+                        "size":{
+                            "field": "firespots",
+                            "type": "quantitative",
+                            "title": "Number of forest fire outbreaks",
+                            "scale": {
+                                "type": "threshold",
+                                "domain": [100, 200, 1000, 5000, 10000, 20000],
+                                "range": [50,100,150, 200, 300, 400, 500]
+                            }
+                        },
+                        "color": {"value": "#f86d07"},
+                        "opacity": {"value": 0.5},
+                        "tooltip":[
+                            {"field":"state", "type": "nominal", "title": "State"},
+                            {"field":"firespots","type": "quantitative", "title":"Number of fires"},
+                            {"field":"year", "type": "temporal", "timeUnit": "year", "title":"Year"},
+                            {"field":"sumFire", "type": "quantitative", "title":"Total fires in the State for that year"}
+                        ] 
+        
+                    }
                 }
-            ],
+            ]
+        },
+        {
+            "width": 280,
+            "height": 100,
+            "title": "Select the year you wish to see",
             "encoding": {
-                "longitude": {"field": "longitude", "type": "quantitative"},
-                "latitude": {"field": "latitude", "type": "quantitative"},
-                "size":{
-                    "field": "firespots",
-                    "type": "quantitative",
-                    "title": "Number of forest fire outbreaks",
-                    "scale": {
-                        "type": "threshold",
-                        "domain": [100, 200, 1000, 5000, 10000, 20000],
-                        "range": [50,100,150, 200, 300, 400, 500]
+                "x": {
+                    "field": "year",
+                    "type": "temporal",
+                    "title": null,
+                    "axis": {
+                        "gridColor": "black",
+                        "gridOpacity": 0.2
                     }
                 },
-                "color": {"value": "#f86d07"},
-                "opacity": {"value": 0.6},
-                "tooltip":[
-                    {"field":"state", "type": "nominal", "title": "State"},
-                    {"field":"firespots","type": "quantitative", "title":"Number of fires"},
-                    {"field":"year", "type": "nominal", "title":"Year"},
-                    {"field":"sumFire", "type": "quantitative", "title":"Total fires in the State for that year"}
-                ] 
+                "y": {
+                    "field": "sumYear",
+                    "type": "quantitative",
+                    "title": "Total fires per year",
+                    "axis": {
+                        "gridColor": "black",
+                        "gridOpacity": 0.2
+                    }
+                },
+                "color": {"value": "#f86d07"}
+            },
+            "layer": [
+                {
+                    "params": [
+                        {
+                            "name": "yearInt",
+                            "select": {"type": "point", "encodings": ["x"]}
+                        },
+                        {
+                            "name": "highlight",
+                            "select": {"type": "point", "on": {"type": "mouseover"}}
+                        },
+                        {
+                            "name": "select", "select": "point"
+                        }
+                    ],
+                    "mark": {
+                        "type":"point", 
+                        "filled": true, 
+                        "fill": "#f86d07", 
+                        "stroke": "black",
+                        "cursor": "pointer"
+                    },
+                    "encoding": {
+                        "tooltip": [
+                            {"field": "sumYear", "type": "quantitative", "title": "Total spot fires that year"},
+                            {"field": "year", "type": "temporal", "title": "Year", "timeUnit": "year"}
+                        ],
+                        "fillOpacity": {
+                            "condition": {"param": "select", "value": 1},
+                            "value": 0.5
+                        },
+                        "strokeWidth":{
+                            "condition": [
+                                {
+                                    "param": "highlight",
+                                    "empty": false,
+                                    "value": 1
+                                },
+                                {
+                                    "param": "select",
+                                    "empty": false,
+                                    "value": 2
+                                }
+                            ],
+                            "value": 0
+                        },
+                        "size": {
+                            "condition": [
+                                {
+                                    "param": "highlight",
+                                    "empty": false,
+                                    "value": 100
+                                },
+                                {
+                                    "param": "select",
+                                    "empty": false,
+                                    "value": 100
+                                }
+                            ],
+                            "value": 50
+                        }
 
-            }
+                    }
+                },
+                {
+                    "mark": "line"
+                }
+            ]
+            
         }
     ]
 }

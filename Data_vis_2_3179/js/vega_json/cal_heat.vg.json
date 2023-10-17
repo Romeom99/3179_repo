@@ -1,7 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": "container",
+    "width": 550,
     "height": 400,
+    "background": "#c8ebcc",
     "title": "Deforestation of Brazillian States",
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/cal_heat/treecover_loss_by_region__ha.csv"
@@ -36,7 +37,10 @@
             "bin": {"maxbins": 22},
             "field": "umd_tree_cover_loss__year",
             "type": "ordinal",
-            "title": null
+            "title": null,
+            "axis": {
+                "labelAngle": -45
+            }
             
 
         },
@@ -60,7 +64,7 @@
                     "type": "quantitative",
                     "title": "Tree loss per square kilometer",
                     "scale": {
-                        "scheme": "greens"
+                        "scheme": "purples"
                       }
                 },
                 "fillOpacity": {

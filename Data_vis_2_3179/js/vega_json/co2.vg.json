@@ -1,0 +1,52 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/stream/treecover_loss__ha.csv"
+    },
+    "transform": [
+        {"filter": "datum.causes !== 'Unknown'"},
+        {
+            "window": [{"op":"sum","field": "co2", "as": "sumCo2"}],
+            "frame": [null, null],
+            "groupby": ["year"]
+        },
+        {
+            "window": [{"op":"sum", }]
+        }
+    ],
+    "vconcat": [
+        {
+            "width": 500,
+            "height": 400,
+            "transform": [
+                {"filter": {"param": "yearInt"}}
+            ],
+            "mark": {"type": "arc", "innerRadius": 50},
+            "encoding": {
+            "theta": {"field": "co2", "type": "quantitative"},
+            "color": {"field": "causes", "type": "nominal"}
+            }
+        },
+        {
+            "params": [
+                {"name": "yearInt", "select": {"type": "interval", "encodings": ["x"]}}
+            ],
+            "width": 500,
+            "height": 100,
+            "mark": "line",
+            "encoding": {
+                "x": {
+                    "field": "year",
+                    "type": "temporal",
+                    "title": null,
+                    "axis": {"tickCount": 22}
+                },
+                "y": {
+                    "field": "sumCo2",
+                    "type": "quantitative",
+                    "title": "Total Carbon Dioxide levels"
+                }
+            }
+        }
+    ]   
+}

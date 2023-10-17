@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json", 
-    "width": "container",
+    "background": "#c8ebcc",
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/stream/treecover_loss__ha.csv"
     },
@@ -15,64 +15,121 @@
     ],
     "vconcat": [
         {
+            "width": 610,
+            "height": 250,
             "mark": "area",
             "params": [
-                {"name": "yearInt", "select":  {"type": "interval",
-                "encodings": ["x"]}}
+                {"name": "yearInt", "select":  {"type": "interval","encodings": ["x"]}}
             ],
+
             "encoding": {
-            "x": {
-                "timeUnit": "year", "field": "year",
-                "axis": {"domain": false, "format": "%Y", "tickSize": 0},
-                "title": null
-            },
-            "y": {
-                "aggregate": "sum",
-                "field": "tree_loss_km",
-                "title": "Tree loss (square kilometer)"
-            },
-            "color": {
+                "x": {
+                    "timeUnit": "year", "field": "year",
+                    "axis": {
+                        "domain": false, 
+                        "format": "%Y", 
+                        "tickSize": 0,
+                        "gridColor": "black",
+                        "gridOpacity": 0.2
+                    },
+                    "title": null
+                },
+                "y": {
+                    "aggregate": "sum",
+                    "field": "tree_loss_km",
+                    "title": "Tree loss (square kilometer)",
+                    "axis": {
+                        "gridColor": "black",
+                        "gridOpacity": 0.2
+                    }
+                    
+                },
+                "color": {
                     "field": "causes", 
                     "scale":{
                         "range": ["#C5413A", "#3ABEC5", "#BDC23D", "#423DC2", "#C23D8D", "#7E59A6"]
                     }
                 }
-            },
-            "height": 300
+            } 
         },
         {
-            "height": 100,
+            "width": 610,
+            "height": 50,
+            "title": "Pick the year range on the graph above by dragging with your mouse",
             "transform": [
-                {"filter": {"param": "yearInt", "empty": false}}
+                {"filter": {"param": "yearInt", "empty": false}},
+                {
+                    "window": [{"op": "sum", "field": "tree_loss_km", "as": "sumTree"}],
+                    "frame": [null,null],
+                    "groupby": ["causes"]
+                }
             ],
-            "mark": "bar",
-            "encoding": {
-                "y": {
-                    "field": "causes",
-                    "type": "ordinal",
-                    "sort": "descending",
-                    "title": "Cause"
-                },
-                "x": {
-                    "aggregate": "sum",
-                    "field": "tree_loss_km",
-                    "title": "Tree Loss to cause ",
-                    "scale": {
-                        "type": "sqrt"
+            "layer": [
+                {
+                    "mark": "bar",
+                    "encoding": {
+                        "y": {
+                            "field": "causes",
+                            "type": "ordinal",
+                            "sort": "descending",
+                            "title": null,
+                            "axis": {
+                                "labels": false,
+                                "gridColor": "black",
+                                "gridOpacity": 0.2
+                            }
+                        },
+                        "x": {
+                            "field": "tree_loss_km",
+                            "title": "Tree Loss to cause (square Kilometer)",
+                            "scale": {
+                                "type": "sqrt",
+                                "domain": [0, 350000]
+                            },
+                            "axis": {
+                                "gridColor": "black",
+                                "gridOpacity": 0.2
+                            }
+                        },
+                        "color": {
+                            "field": "causes",
+                            "title": "Cause",
+                            "scale": {
+                                "range": ["#C5413A", "#3ABEC5", "#BDC23D", "#423DC2", "#C23D8D", "#7E59A6"]
+                            }
+                        },
+                        "tooltip": [
+                            {"field": "causes", "type": "nominal", "title": "Cause"},
+                            {"field": "sumTree", "type": "quantitative", "title": "Tree loss (square kilometer)", "format": ".0f"}
+                        ]
                     }
                 },
-                "color": {
-                    "field": "causes",
-                    "title": "Cause",
-                    "scale": {
-                        "range": ["#C5413A", "#3ABEC5", "#BDC23D", "#423DC2", "#C23D8D", "#7E59A6"]
+                {
+                    "mark": {
+                        "type": "text",
+                        "align":"left",
+                        "baseline": "middle",
+                        "dx": 3
+                    },
+                    "encoding": {
+                        "x":{
+                            "field": "sumTree",
+                            "scale": {
+                                "type": "sqrt",
+                                "domain": [0, 350000]
+                            }
+                        },
+                        "y":{
+                            "field": "causes",
+                            "type": "ordinal",
+                            "sort": "descending",
+                            "title": "Cause"
+                        },
+                        "text": {"field": "sumTree", "type": "quantitative", "format": ".0f"}
                     }
-                },
-                "tooltip": [
-                    {"field": "causes", "type": "nominal", "title": "Cause"},
-                    {"field": "tree_loss_km", "type": "quantitative", "title": "Tree loss (square kilometer)"}
-                ]
-            }
+                }
+            ]
+            
         }
        
     ],

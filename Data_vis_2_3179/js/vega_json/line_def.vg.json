@@ -1,7 +1,13 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": "container",
+    "width": 740,
     "height": 200,
+    "background": "#c8ebcc",
+    "config": {
+        "view": {
+           "stroke": "transparent"
+        }
+      },
     "title": "Comparing Deforesation levels of Brazil to other Countries",
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/data/treecover_loss_by_region__ha.csv"
@@ -63,7 +69,7 @@
         {"filter": "datum.country_name != null"},
         {"filter": "datum.country_name == 'Brazil' || datum.country_name == country_sel"},
         {
-            "calculate": "(datum.tree_loss_ha*0.01)/(datum.country_area*(datum.for_per/100))",
+            "calculate": "((datum.tree_loss_ha*0.01)/(datum.country_area*(datum.for_per/100)))*100",
             "as": "Tree_loss_(km/km)"
         },
         {
@@ -75,36 +81,75 @@
         "x": {
             "field": "year",
             "type": "temporal",
-            "title": null
+            "title": null,
+            "axis": {
+                "gridColor": "black",
+                "gridOpacity": 0.2
+            }
         },
         "y": {
             "field": "Tree_loss_(km/km)",
             "type": "quantitative",
             "title": "Deforestation per Forest Area",
-            "axis": {"tickCount": 6},
+            "axis": {
+                "tickCount": 6,
+                "gridColor": "black",
+                "gridOpacity": 0.2
+            },
             "scale": {
-                "domain": [0.001,0.03]
+                "domain": [0,3]
             }
+        },
+        "color":{
+            "field":"country_name",
+            "type": "nominal",
+            "title": "Country"
         }
     },
     "layer": [
         {
-            "mark":{"type":"line", "strokeWidth": 2, "point": true},
+            "params": [
+                
+                {
+                    "name": "highlight",
+                    "select": {"type": "point", "on": {"type": "mouseover"}}
+                }
+            ],
+
+            "mark":{
+                "type":"point", 
+                "filled": true,
+                "stroke": "black",
+                "cursor": "pointer"
+            },
             "encoding": {
-                "color":{
-                    "field":"country_name",
-                    "type": "nominal",
-                    "title": "Country"
-                },
                 "tooltip":[
+                    
                     {"field":"country_name", "type": "nominal","title":"Country"},
                     {"field": "year", "type": "temporal", "title":"Year", "timeUnit": "year"},
-                    {"field": "Tree_loss_(km/km)", "type": "quantitative", "title": "Tree Cover Loss per square kilometer of Forest area (km^2/km^2)", "format": ".4f"},
+                    {"field": "Tree_loss_(km/km)", "type": "quantitative", "title": "Tree Cover Loss per 100 square kilometers of forest area", "format": ".4f"},
                     {"field": "tree_loss_km", "type": "quantitative","title": "Total Tree cover loss for that year (km^2)", "format": ".2f"}
-                ]
-            }
-            
+                ],
+                "size":{
+                    "condition":{
+                        "param": "highlight",
+                        "empty": false,
+                        "value": 100
+                    },
+                    "value": 50
+                },
+                "strokeWidth":{
+                    "condition": {
+                        "param": "highlight",
+                        "empty": false,
+                        "value": 2
+                    },
+                    "value": 0
+                }
+            } 
+        },
+        {
+            "mark":"line"
         }
-
     ]
 }
