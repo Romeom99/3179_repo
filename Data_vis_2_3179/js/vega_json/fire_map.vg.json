@@ -13,12 +13,12 @@
     "params": [
         {
             "name": "zoom_level",
-            "value": 200,
+            "value": 300,
             "bind": {
                 "input": "range",
-                "min": 50,
-                "max": 500,
-                "step": 100,
+                "min": 300,
+                "max": 700,
+                "step": 50,
                 "name": "Zoom: "
             }   
         }
@@ -36,14 +36,14 @@
             "height": 300,
             "projection": {
                 "type":"azimuthalEqualArea",
-                "center": [295.014782,-4.729727],
+                "center": [283.086397,6.686430],
                 "scale": {"expr": "zoom_level"}
             },
             "layer": [
                 {
                     "name": "oceans",
                     "data": {
-                        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_110m_ocean.json",
+                        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/js/geojson/ne_110m_ocean_1.json",
                         "format": {"type": "topojson", "feature": "ne_110m_ocean"}
                     },
                     "mark": {"type": "geoshape", "fill": "#e5f9fb"}
@@ -51,7 +51,7 @@
                 {
                     "name": "countries",
                     "data":{
-                        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_110m_admin_0_countries.json",
+                        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/js/geojson/ne_110m_admin_0_countries_1.json",
                         "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
                     },
                     "mark": {"type": "geoshape", "fill": "#e0e0e0"}
@@ -59,7 +59,7 @@
                 {
                     "name": "state_map",
                     "data":{
-                        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Homework_10/js/ne_50m_admin_1_states_provinces.json",
+                        "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/js/geojson/ne_50m_admin_1_states_provinces.json",
                         "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
                     },
                     "mark": {"type": "geoshape", "fill": "#cdcdcd", "stroke": "black", "strokeWidth": 0.2}
