@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json", 
-    "background": "#c8ebcc",
+    "background": "#e8edfe",
     "data": {
         "url": "https://raw.githubusercontent.com/Romeom99/3179_repo/main/Data_vis_2_3179/data/stream/treecover_loss__ha.csv"
     },
@@ -47,7 +47,7 @@
                 "color": {
                     "field": "causes", 
                     "scale":{
-                        "range": ["#d42bd4", "#1a0ef1", "#1de2e2", "#5929A3", "#f86d07"]
+                        "range": ["#d42bd4", "#2e8210", "#21a5cf", "#1a0ef1", "#f86d07"]
                     }
                 }
             } 
@@ -95,7 +95,7 @@
                             "field": "causes",
                             "title": "Cause",
                             "scale": {
-                                "range": ["#d42bd4", "#1a0ef1", "#1de2e2", "#5929A3", "#f86d07"]
+                                "range": ["#d42bd4", "#2e8210", "#21a5cf", "#1a0ef1", "#f86d07"]
                             }
                         },
                         "tooltip": [

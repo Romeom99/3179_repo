@@ -6,7 +6,7 @@
     align-items: center;
     width: 1000px;
     margin: 0 auto;
-    background-color: #c8ebcc;
+    background-color: #e8edfe;
     padding: 20px;
     text-align: center;
     font-family: 'Roboto', sans-serif;
@@ -24,29 +24,27 @@
 
 .con11 {
     width: 100%;
-    background-color: #87b48e;
+    background-color: #c6d1fe;
     padding: 20px;
 }
 
 .con23 {
     flex: 2;
     padding: 20px;
-    background-color: #87b48e;
+    background-color: #c6d1fe;
 }
 .con13 {
     flex: 1;
     text-align: left;
     padding: 20px;
-    background-color: #87b48e;
+    background-color: #c6d1fe;
 }
 
 #dual {
     margin: 8px 0 8px, 0;
 }
 
-body{
-    background-color: #e3e1c8;
-}
+
 .desc > p{
     column-count: 2;
     column-gap: 10px;
@@ -56,13 +54,9 @@ body{
 
 
 .vis_con, p{
-    background-color: #87b48e;
+    background-color: #c6d1fe;
     width: 100%;
     box-sizing: content-box;
-}
-
-.test{
-    color: blue;
 }
 
 .sincol {
@@ -70,14 +64,14 @@ body{
 }
 
 .desc{
-    background-color: #87b48e;
+    background-color: #c6d1fe;
     padding: 2%;
     margin-top: 8px;
 }
 
 .seps{
-    background-color: #1e5125;
-    outline-color: #1e5125;
+    background-color: #231e51;
+    outline-color: #231e51;
     height: 6px;
     width: 100%;
     border: none;
@@ -88,13 +82,13 @@ body{
 }
 
 .two{
-    color: #1a0ef1;
+    color: #2e8210;
 }
 .three{
-    color: #1de2e2;
+    color: #21a5cf;
 }
 .four{
-    color: #5929A3;
+    color: #1a0ef1;
 }
 .five{
     color: #f86d07;
