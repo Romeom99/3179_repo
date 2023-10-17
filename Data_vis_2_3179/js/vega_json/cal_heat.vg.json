@@ -64,7 +64,7 @@
                     "type": "quantitative",
                     "title": "Tree loss per square kilometer",
                     "scale": {
-                        "scheme":"purpleblue"
+                        "scheme":"purples"
                       }
                 },
                 "fillOpacity": {

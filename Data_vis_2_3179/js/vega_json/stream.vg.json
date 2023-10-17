@@ -47,7 +47,7 @@
                 "color": {
                     "field": "causes", 
                     "scale":{
-                        "range": ["#C5413A", "#3ABEC5", "#BDC23D", "#423DC2", "#C23D8D", "#7E59A6"]
+                        "range": ["#d42bd4", "#1a0ef1", "#1de2e2", "#5929A3", "#f86d07"]
                     }
                 }
             } 
@@ -95,7 +95,7 @@
                             "field": "causes",
                             "title": "Cause",
                             "scale": {
-                                "range": ["#C5413A", "#3ABEC5", "#BDC23D", "#423DC2", "#C23D8D", "#7E59A6"]
+                                "range": ["#d42bd4", "#1a0ef1", "#1de2e2", "#5929A3", "#f86d07"]
                             }
                         },
                         "tooltip": [
